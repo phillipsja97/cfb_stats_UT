@@ -3,13 +3,44 @@ from sys import getallocatedblocks
 from bs4 import BeautifulSoup
 import requests
 import time
-import getTeamRankingTemplate
+import get3rdDownConvPercent
+import get3rdDownConvPercDefense
+import get4thDownConvPercent
+import get4thDownConvPercDefense
+import getBlockedKicks
+import getBlockedKicksAllowed
+import getBlockedPunts
+import getBlockedPuntsAllowed
+import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+DB_PASSWORD = os.getenv('PASSWORD')
+
+HOST = "localhost"  
+PORT=3306
+USERNAME = "root"
+PASSWORD = DB_PASSWORD
+DATABASE = "cfb_team_stats"
 
 
-statCategoryIds = [28, 27, 699, 701, 700, 702, 785, 786, 790, 791, 756, 926, 876, 697, 877, 698, 694, 693, 458, 456, 463, 96, 98, 459, 457, 25, 695, 741, 462, 97, 704, 703, 24, 23, 468, 696, 465, 40, 466, 467, 705, 22, 21, 29, 460, 461, 742]
+db = mysql.connector.connect(
+      host=HOST,
+      port=PORT,
+      user=USERNAME,
+      password=PASSWORD,
+      database=DATABASE
+)
 
-for stat in statCategoryIds:
-    teamList = getTeamRankingTemplate.main(stat)
+cursor = db.cursor(buffered=True)
+
+queries = [get3rdDownConvPercent, get3rdDownConvPercDefense, get4thDownConvPercDefense, get4thDownConvPercent, getBlockedKicks, getBlockedKicksAllowed, getBlockedPunts, getBlockedPuntsAllowed]
+
+for query in queries:
+    print(f"Getting {query}")
+    query.main(db, cursor)
     time.sleep(1)
-    for statToAdd in teamList:
-        print(statToAdd)
+print("Closing Database Connection")
+cursor.close()
+db.close()
