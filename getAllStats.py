@@ -11,6 +11,8 @@ import getBlockedKicks
 import getBlockedKicksAllowed
 import getBlockedPunts
 import getBlockedPuntsAllowed
+import getCompletionPercentage
+import getDefensiveTouchdowns
 import mysql.connector
 import os
 from dotenv import load_dotenv
@@ -35,7 +37,7 @@ db = mysql.connector.connect(
 
 cursor = db.cursor(buffered=True)
 
-queries = [get3rdDownConvPercent, get3rdDownConvPercDefense, get4thDownConvPercDefense, get4thDownConvPercent, getBlockedKicks, getBlockedKicksAllowed, getBlockedPunts, getBlockedPuntsAllowed]
+queries = [get3rdDownConvPercent, get3rdDownConvPercDefense, get4thDownConvPercDefense, get4thDownConvPercent, getBlockedKicks, getBlockedKicksAllowed, getBlockedPunts, getBlockedPuntsAllowed, getCompletionPercentage, getDefensiveTouchdowns]
 
 for query in queries:
     print(f"Getting {query}")
