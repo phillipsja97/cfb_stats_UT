@@ -14,6 +14,10 @@ import getBlockedPuntsAllowed
 import getCompletionPercentage
 import getDefensiveTouchdowns
 import getFewestPenalties
+import getScoringDefense
+import getScoringOffense
+import getTotalDefense
+import getTotalOffense
 import mysql.connector
 import os
 from dotenv import load_dotenv
@@ -48,7 +52,11 @@ getBlockedKicksAllowed,
 getBlockedPunts, getBlockedPuntsAllowed,
 getCompletionPercentage,
 getDefensiveTouchdowns,
-getFewestPenalties
+getFewestPenalties,
+getScoringOffense,
+getScoringDefense,
+getTotalDefense,
+getTotalOffense
 ]
 
 for query in queries:
